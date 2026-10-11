@@ -1,0 +1,9 @@
+GSAP 3.13.0 · ScrollTrigger 3.13.0
+https://github.com/greensock/GSAP
+
+本目录下的 gsap.min.js 与 ScrollTrigger.min.js 由 jsDelivr 从 npm 包 gsap@3.13.0
+下载并本地化，仅用于本课程设计网站的滚动与进场动画。GSAP 采用 "GSAP Standard
+License"（Webflow 于 2025 年起将 GSAP 及其全部插件免费开放，含商用），完整条款见
+https://gsap.com/community/standard-license/ 与仓库根目录 LICENSE.md。
+
+保留本地副本的目的是让网站在不联网的教室环境中也能完整运行。

@@ -1,0 +1,73 @@
+# 如东 · 向海问风
+
+江苏如东 800MW 海上风电互动宣传网站（习近平新时代中国特色社会主义思想概论 · 课程设计）。
+
+## 打开方式
+
+**方式一（推荐用于投屏）**：直接双击 `index.html`，用 Chrome / Edge 打开即可，功能完整、无需联网（所有依赖都在 `vendor/` 与 `assets/` 内）。
+
+**方式二（本地服务器）**：
+
+```bash
+cd site
+python -m http.server 8080
+# 浏览器访问 http://127.0.0.1:8080/
+```
+
+## 目录结构
+
+```
+site/
+├── index.html                 页面结构（语义化标签 + 无障碍标注）
+├── assets/
+│   ├── style.css              设计系统：深海配色、排版、响应式、打印样式
+│   ├── data.js                ★ 全部内容数据（改文案只改这个文件）
+│   ├── scene.js               序章 canvas 场景：200 台风机剪影 + 海浪
+│   └── app.js                 渲染与交互逻辑
+├── vendor/                    本地化的第三方库（离线可用）
+│   ├── gsap.min.js            GreenSock Animation Platform 3.13（免费许可）
+│   └── ScrollTrigger.min.js   滚动驱动动画插件
+├── tests/
+│   ├── run.mjs                自动化测试（40 项）
+│   ├── screenshot.mjs         生成报告用截图
+│   └── report.json            最近一次测试报告
+└── screenshots/               页面截图（可直接放进课程报告）
+```
+
+## 运行测试
+
+```bash
+cd site
+node tests/run.mjs            # 无头模式
+node tests/run.mjs --headed   # 有界面模式，用于观察交互
+node tests/screenshot.mjs     # 重新生成截图
+```
+
+测试使用本机已安装的 Microsoft Edge；若使用其他 Chromium 内核浏览器，设置环境变量 `RD_BROWSER_PATH` 指向可执行文件即可。
+
+覆盖范围：加载零报错、无外部网络依赖、file:// 离线可用、结构与数据一致、可访问名称、对比度、时间轴 9 个节点逐项校验、风机 8 个部件、柔直送电、换算器边界值、小测计分、留言本地存储、导航与滚动、1440/1024/768/390 四种宽度的溢出与重叠、折叠菜单、打印样式、体积预算、序章画布是否真的画出内容。
+
+## 发布上线
+
+站点已配好 GitHub Pages 自动发布（仓库根目录的 `.github/workflows/pages.yml` 会把 `site/` 发布上线，自动排除 `tests/` 与 `screenshots/`）。完整步骤见仓库根目录的 `部署到GitHub-Pages.md`，或直接运行 `发布到GitHub.ps1`。
+
+## 内容维护
+
+- 所有数字、来源、时间轴节点、部件说明、题目都在 `assets/data.js`。
+- 每条数据带 `src` 字段，页面底部"数据与来源"章节由它自动生成。
+- 没有公开口径的年份在数据里写 `null`，页面会显示"—"，不做推测。
+- 修改后请重新运行 `node tests/run.mjs`，结构类断言会验证数量与文案是否同步。
+
+## 设计说明
+
+- 配色：**深蓝 `#194891`（RGB 25, 72, 145）+ 金色 `#FFD700`** 双主色。深蓝用于首屏天幕、面板与数据卡填充、图表主柱；金色只用在关键数字、选中态、当前章节、进度条与电流光点上（面积 < 10%）。页面底色为压暗的 `#061530`，正文 `#EEF4FF`，数据线 `#4F8FE0`；反馈红 `#FF7A6B` 仅用于答错与待核实。
+- 全部文字与底色的对比度经测试断言，最低 4.7:1，满足 WCAG AA。
+- 序章用 canvas 绘制 200 台风机剪影（三层景深、叶片持续转动），离开视口自动暂停，尊重 `prefers-reduced-motion`。
+- 章节动效由 GSAP + ScrollTrigger 驱动，库缺失时自动降级为 IntersectionObserver。
+- 键盘可达（跳转链接、方向键操作时间轴、真实按钮控件），支持打印排版。
+
+## 第三方资源
+
+- [GSAP](https://github.com/greensock/GSAP) 3.13（含 ScrollTrigger）：已本地化到 `vendor/`，用于滚动与进场动画。
+- 字体使用系统字体栈（思源黑体 / HarmonyOS Sans / 苹方 / 微软雅黑），不加载外部字体文件。
+- 全部图形为自绘 SVG / canvas，无第三方图片素材，无版权风险。

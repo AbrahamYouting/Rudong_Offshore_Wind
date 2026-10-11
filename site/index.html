@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>如东 · 向海问风｜江苏如东 800MW 海上风电互动展</title>
+<meta name="description" content="从 2002 年国家第一个风电特许权项目，到 2021 年两座 800MW 海上风电场建成——用可交互的方式，看如东的海风如何变成电。">
+<meta name="theme-color" content="#194891">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23194891'/%3E%3Cg stroke='%23ffd700' stroke-width='2.4' stroke-linecap='round'%3E%3Cpath d='M16 16V5'/%3E%3Cpath d='M16 16 6.5 21.5'/%3E%3Cpath d='M16 16l9.5 5.5'/%3E%3C/g%3E%3Ccircle cx='16' cy='16' r='2.6' fill='%23fff3b0'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="assets/style.css">
+<script>document.documentElement.classList.add("js");</script>
+</head>
+<body>
+<a class="skip-link" href="#history">跳到正文</a>
+
+<header class="site-header" id="site-header">
+  <div class="site-header__inner">
+    <a class="brand" href="#hero">
+      <span class="brand__dot" aria-hidden="true"></span>
+      <span class="brand__text">如东 <em>·</em> 向海问风</span>
+    </a>
+    <button class="nav-toggle" id="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
+      <span class="nav-toggle__bars" aria-hidden="true"></span>
+      <span class="nav-toggle__text">章节</span>
+    </button>
+    <nav class="site-nav" id="site-nav" aria-label="章节导航">
+      <ul class="site-nav__list" id="nav-list"></ul>
+    </nav>
+  </div>
+  <div class="progress" role="presentation">
+    <div class="progress__bar" id="progress-bar"></div>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- ============ 序章 ============ -->
+  <section class="hero" id="hero" aria-labelledby="hero-title">
+    <canvas class="hero__canvas" id="hero-canvas" aria-hidden="true"></canvas>
+    <div class="hero__veil" aria-hidden="true"></div>
+    <div class="hero__inner">
+      <p class="eyebrow" id="hero-eyebrow"></p>
+      <h1 class="hero__title" id="hero-title">
+        <span class="hero__line" data-line="1"></span>
+        <span class="hero__line hero__line--strong" data-line="2"></span>
+      </h1>
+      <p class="hero__lead" id="hero-lead"></p>
+      <ul class="stat-grid" id="hero-stats"></ul>
+      <div class="hero__foot">
+        <span class="scroll-cue" aria-hidden="true"><i></i>向下滚动</span>
+        <p class="hero__disclaimer" id="hero-disclaimer"></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 两座 800MW ============ -->
+  <section class="section section--tight" id="twins" aria-labelledby="twins-title">
+    <div class="wrap">
+      <header class="section__head">
+        <p class="section__index">00</p>
+        <h2 class="section__title" id="twins-title"></h2>
+        <p class="section__lead" id="twins-lead"></p>
+      </header>
+      <div class="twin-grid" id="twin-grid"></div>
+    </div>
+  </section>
+
+  <!-- ============ 从跟跑到领跑 ============ -->
+  <section class="section" id="history" aria-labelledby="history-title">
+    <div class="wrap">
+      <header class="section__head">
+        <p class="section__index">01</p>
+        <h2 class="section__title" id="history-title">把二十四年拖成一条线</h2>
+        <p class="section__lead">拖动滑杆或使用键盘 ← → 键，看每一个节点当时做到哪一步。空白表示该年份没有公开口径。</p>
+      </header>
+
+      <div class="timeline reveal">
+        <div class="timeline__control">
+          <label class="timeline__label" for="year-range">年份 <b id="year-out" class="num">2021</b></label>
+          <input id="year-range" class="timeline__range" type="range" min="0" max="8" step="1" value="5"
+                 aria-describedby="year-out timeline-help">
+          <p class="timeline__help" id="timeline-help">左右方向键可精确调整年份，Home / End 跳到首尾。</p>
+          <div class="timeline__ticks" id="timeline-ticks" aria-hidden="true"></div>
+        </div>
+
+        <div class="timeline__grid">
+          <article class="panel panel--event" aria-live="polite">
+            <p class="tag" id="event-tag"></p>
+            <p class="event-year num" id="event-year"></p>
+            <h3 class="event-title" id="event-title"></h3>
+            <p class="event-detail" id="event-detail"></p>
+            <p class="source-line" id="event-src"></p>
+          </article>
+          <div class="panel panel--meters" aria-live="polite" id="meter-panel"></div>
+        </div>
+      </div>
+
+      <div class="chart-block reveal">
+        <header class="chart-block__head">
+          <h3 id="unit-chart-title"></h3>
+          <p class="source-line" id="unit-chart-caveat"></p>
+        </header>
+        <div class="bars" id="unit-bars" role="img" aria-labelledby="unit-chart-title" aria-describedby="unit-chart-facts"></div>
+        <ul class="fact-list" id="unit-chart-facts"></ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 硬核科技 ============ -->
+  <section class="section" id="tech" aria-labelledby="tech-title">
+    <div class="wrap">
+      <header class="section__head">
+        <p class="section__index">02</p>
+        <h2 class="section__title" id="tech-title">点开一台风机</h2>
+        <p class="section__lead">点击机身上的圆点或下方部件名，右侧会回答一个问题：这个零件为什么关键。</p>
+      </header>
+
+      <div class="turbine reveal">
+        <div class="turbine__stage">
+          <div class="diagram" id="diagram">
+            <svg viewBox="0 0 640 380" role="img" aria-labelledby="diagram-title diagram-desc">
+              <title id="diagram-title">海上风电机组与柔性直流送出剖面示意图</title>
+              <desc id="diagram-desc">示意图包含叶片、轮毂与变桨、主轴与齿轮箱、发电机、塔筒、单桩基础、阵列海缆与海上换流站八个部件。</desc>
+              <g>
+                <path d="M0 352 H640" stroke="#2f6ac2" stroke-width="2" fill="none"/>
+                <path d="M0 290 C60 284 90 296 150 290 C210 284 250 296 310 290 C370 284 420 296 480 290 C540 284 590 296 640 290"
+                      stroke="#4f8fe0" stroke-width="2" fill="none" opacity=".45"/>
+                <path class="part part--cable" d="M264 352 H470" stroke="#4f8fe0" stroke-width="3" fill="none"/>
+                <path class="part part--cable" d="M470 352 H604" stroke="#4f8fe0" stroke-width="3" fill="none"/>
+                <circle class="part part--cable" cx="330" cy="352" r="4" fill="#4f8fe0"/>
+                <circle class="part part--cable" cx="410" cy="352" r="4" fill="#4f8fe0"/>
+                <rect class="part part--base" x="240" y="290" width="28" height="62" rx="3" fill="#eef4ff" opacity=".8"/>
+                <polygon class="part part--tower" points="244,142 256,142 262,290 238,290" fill="#eef4ff"/>
+                <g class="part part--blade">
+                  <path d="M250 133 L246 20" stroke="#eef4ff" stroke-width="9" stroke-linecap="round" fill="none"/>
+                  <path d="M250 133 L162 198" stroke="#eef4ff" stroke-width="9" stroke-linecap="round" fill="none"/>
+                  <path d="M250 133 L334 208" stroke="#eef4ff" stroke-width="9" stroke-linecap="round" fill="none"/>
+                </g>
+                <rect class="part part--shaft" x="262" y="131" width="50" height="24" rx="6" fill="#eef4ff" opacity=".85"/>
+                <rect class="part part--gen" x="324" y="124" width="68" height="38" rx="9" fill="#eef4ff" opacity=".85"/>
+                <rect x="318" y="122" width="4" height="42" fill="#2f6ac2"/>
+                <rect x="252" y="116" width="150" height="44" rx="10" fill="none" stroke="#2f6ac2" stroke-width="2"/>
+                <circle class="part part--hub" cx="250" cy="133" r="15" fill="#eef4ff"/>
+                <rect class="part part--station" x="468" y="232" width="96" height="56" rx="8" fill="#194891"/>
+                <rect class="part part--station" x="478" y="222" width="76" height="12" rx="4" fill="#ffd700"/>
+                <g class="part part--station" stroke="#eef4ff" stroke-width="3" opacity=".7" fill="none">
+                  <path d="M478 288 L466 340"/>
+                  <path d="M554 288 L566 340"/>
+                  <path d="M500 288 L494 340"/>
+                  <path d="M532 288 L538 340"/>
+                </g>
+                <text x="516" y="266" text-anchor="middle" font-size="13" fill="#eef4ff">换流站</text>
+                <text x="516" y="366" text-anchor="middle" font-size="12" fill="#93aad0">±400kV 直流海缆</text>
+                <text x="24" y="282" font-size="12" fill="#93aad0">海面</text>
+              </g>
+            </svg>
+            <div class="diagram__hots" id="diagram-hots"></div>
+          </div>
+          <div class="chips" id="part-chips" role="group" aria-label="选择部件"></div>
+        </div>
+        <div class="panel panel--detail" aria-live="polite">
+          <h3 id="part-name"></h3>
+          <p id="part-plain"></p>
+          <p class="source-line" id="part-spec"></p>
+        </div>
+      </div>
+
+      <div class="hvdc reveal">
+        <header class="hvdc__head">
+          <h3 id="hvdc-title"></h3>
+          <p id="hvdc-lead"></p>
+        </header>
+        <div class="hvdc__stage">
+          <svg class="hvdc__svg" id="hvdc-svg" viewBox="0 0 900 240" role="img" aria-labelledby="hvdc-svg-title">
+            <title id="hvdc-svg-title">柔性直流输电四条链路：海上换流站、±400kV 直流海缆、陆上换流站、电网与用户</title>
+            <path id="hvdc-path" d="M110 170 C 200 170 240 132 330 132 C 420 132 470 168 560 168 C 650 168 700 136 790 136"
+                  fill="none" stroke="#2f6ac2" stroke-width="3" stroke-linecap="round"/>
+            <g id="hvdc-flow" aria-hidden="true"></g>
+            <g id="hvdc-nodes"></g>
+            <g id="hvdc-dots"></g>
+          </svg>
+          <div class="hvdc__nodes" id="hvdc-node-list"></div>
+        </div>
+        <div class="hvdc__actions">
+          <button class="btn btn--primary" id="hvdc-run" type="button">播放送电</button>
+          <p class="hvdc__status" id="hvdc-status" aria-live="polite">点击按钮，看电流怎样穿过 50 公里的海面。</p>
+        </div>
+        <ul class="fact-list" id="hvdc-facts"></ul>
+        <p class="source-line" id="hvdc-source"></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 海上劳动者 ============ -->
+  <section class="section" id="people" aria-labelledby="people-title">
+    <div class="wrap">
+      <header class="section__head">
+        <p class="section__index">03</p>
+        <h2 class="section__title" id="people-title">海风不会自己变成电</h2>
+        <p class="section__lead" id="people-lead"></p>
+      </header>
+      <div class="job-grid" id="job-grid"></div>
+
+      <div class="chain reveal">
+        <header class="chain__head">
+          <h3 id="chain-title"></h3>
+          <p id="chain-lead"></p>
+        </header>
+        <ol class="chain__list" id="chain-list"></ol>
+        <ul class="stat-grid stat-grid--compact" id="chain-stats"></ul>
+        <p class="source-line" id="chain-source"></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 思想之光 ============ -->
+  <section class="section" id="thought" aria-labelledby="thought-title">
+    <div class="wrap">
+      <header class="section__head">
+        <p class="section__index">04</p>
+        <h2 class="section__title" id="thought-title">理论不是贴在墙上的标语</h2>
+        <p class="section__lead">左边是理论命题，右边是可以在海面上被指认的事实。点击任意一条即可对照。</p>
+      </header>
+      <div class="theory">
+        <div class="theory__list" id="theory-list" role="group" aria-label="理论命题"></div>
+        <article class="panel panel--theory" aria-live="polite">
+          <p class="tag" id="theory-label"></p>
+          <blockquote class="theory__quote" id="theory-quote"></blockquote>
+          <p class="source-line" id="theory-source"></p>
+          <hr class="rule">
+          <h3 class="theory__fact-title">在海面上对应的事实</h3>
+          <p id="theory-fact"></p>
+          <p class="source-line" id="theory-fact-src"></p>
+        </article>
+      </div>
+      <p class="source-line" id="theory-note"></p>
+    </div>
+  </section>
+
+  <!-- ============ 你我与海风 ============ -->
+  <section class="section" id="interact" aria-labelledby="interact-title">
+    <div class="wrap">
+      <header class="section__head">
+        <p class="section__index">05</p>
+        <h2 class="section__title" id="interact-title">把 800MW 翻译成生活</h2>
+      </header>
+
+      <div class="converter reveal">
+        <header class="converter__head">
+          <h3 id="converter-title"></h3>
+          <p id="converter-lead"></p>
+        </header>
+        <div class="converter__control">
+          <label class="converter__label" for="kwh-range">累计发电量 <b id="kwh-out" class="num">50</b> 亿千瓦时</label>
+          <input class="timeline__range" id="kwh-range" type="range" min="10" max="100" step="1" value="50">
+        </div>
+        <ul class="result-grid" id="convert-results" aria-live="polite"></ul>
+        <p class="source-line" id="converter-note"></p>
+      </div>
+
+      <div class="quiz reveal">
+        <header class="quiz__head">
+          <h3>四道题，检验理解</h3>
+          <p class="source-line">选一个答案，立刻看到解释。</p>
+        </header>
+        <div id="quiz-list"></div>
+        <p class="quiz__score" id="quiz-score" aria-live="polite">已答 0 / 4 题，答对 0 题。</p>
+      </div>
+
+      <div class="pledge reveal">
+        <header class="pledge__head">
+          <h3 id="pledge-title"></h3>
+          <p id="pledge-lead"></p>
+        </header>
+        <form class="pledge__form" id="pledge-form">
+          <label class="visually-hidden" for="pledge-input">写下你的行动</label>
+          <input class="pledge__input" id="pledge-input" name="pledge" type="text" maxlength="40" placeholder="例如：这周少点两次外卖" autocomplete="off">
+          <button class="btn btn--primary" type="submit">写上去</button>
+        </form>
+        <div class="pledge__presets" id="pledge-presets"></div>
+        <ul class="pledge__list" id="pledge-list" aria-live="polite"></ul>
+        <div class="pledge__actions">
+          <button class="btn btn--ghost" id="pledge-clear" type="button">清空我的记录</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 数据与来源 ============ -->
+  <section class="section" id="sources" aria-labelledby="sources-title">
+    <div class="wrap">
+      <header class="section__head">
+        <p class="section__index">06</p>
+        <h2 class="section__title" id="sources-title"></h2>
+        <p class="section__lead" id="sources-lead"></p>
+      </header>
+      <div class="table-responsive">
+        <table class="table" id="sources-table">
+          <caption class="visually-hidden">本站数据来源清单</caption>
+          <thead>
+            <tr><th scope="col">事实</th><th scope="col">数值</th><th scope="col">来源</th><th scope="col">发布时间</th><th scope="col">状态</th></tr>
+          </thead>
+          <tbody id="sources-body"></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap site-footer__inner">
+    <div>
+      <p class="site-footer__title">如东 · 向海问风</p>
+      <p class="site-footer__text" id="footer-disclaimer"></p>
+    </div>
+    <div class="site-footer__meta">
+      <p class="site-footer__text">习近平新时代中国特色社会主义思想概论 · 课程设计</p>
+      <p class="site-footer__text">数据更新：<span id="footer-updated"></span></p>
+    </div>
+  </div>
+</footer>
+
+<noscript>
+  <div class="noscript">本站的交互内容需要启用 JavaScript。核心数据与来源清单在不启用脚本时不可见，请开启后重新加载。</div>
+</noscript>
+
+<script src="vendor/gsap.min.js"></script>
+<script src="vendor/ScrollTrigger.min.js"></script>
+<script src="assets/data.js"></script>
+<script src="assets/scene.js"></script>
+<script src="assets/app.js"></script>
+</body>
+</html>

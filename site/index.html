@@ -5,8 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>如东 · 向海问风｜江苏如东 800MW 海上风电互动展</title>
 <meta name="description" content="从 2002 年国家第一个风电特许权项目，到 2021 年两座 800MW 海上风电场建成——用可交互的方式，看如东的海风如何变成电。">
-<meta name="theme-color" content="#194891">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23194891'/%3E%3Cg stroke='%23ffd700' stroke-width='2.4' stroke-linecap='round'%3E%3Cpath d='M16 16V5'/%3E%3Cpath d='M16 16 6.5 21.5'/%3E%3Cpath d='M16 16l9.5 5.5'/%3E%3C/g%3E%3Ccircle cx='16' cy='16' r='2.6' fill='%23fff3b0'/%3E%3C/svg%3E">
+<meta name="theme-color" content="#1e1e2e">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%231e1e2e'/%3E%3Cg stroke='%23f9e2af' stroke-width='2.4' stroke-linecap='round'%3E%3Cpath d='M16 16V5'/%3E%3Cpath d='M16 16 6.5 21.5'/%3E%3Cpath d='M16 16l9.5 5.5'/%3E%3C/g%3E%3Ccircle cx='16' cy='16' r='2.6' fill='%2389b4fa'/%3E%3C/svg%3E">
 <link rel="stylesheet" href="assets/style.css">
 <script>document.documentElement.classList.add("js");</script>
 </head>
@@ -38,6 +38,7 @@
   <section class="hero" id="hero" aria-labelledby="hero-title">
     <canvas class="hero__canvas" id="hero-canvas" aria-hidden="true"></canvas>
     <div class="hero__veil" aria-hidden="true"></div>
+    <div class="hero__edge" aria-hidden="true"><span></span><span></span><span></span></div>
     <div class="hero__inner">
       <p class="eyebrow" id="hero-eyebrow"></p>
       <h1 class="hero__title" id="hero-title">
@@ -122,36 +123,36 @@
               <title id="diagram-title">海上风电机组与柔性直流送出剖面示意图</title>
               <desc id="diagram-desc">示意图包含叶片、轮毂与变桨、主轴与齿轮箱、发电机、塔筒、单桩基础、阵列海缆与海上换流站八个部件。</desc>
               <g>
-                <path d="M0 352 H640" stroke="#2f6ac2" stroke-width="2" fill="none"/>
+                <path d="M0 352 H640" stroke="#74c7ec" stroke-width="1.6" fill="none" opacity=".7"/>
                 <path d="M0 290 C60 284 90 296 150 290 C210 284 250 296 310 290 C370 284 420 296 480 290 C540 284 590 296 640 290"
-                      stroke="#4f8fe0" stroke-width="2" fill="none" opacity=".45"/>
-                <path class="part part--cable" d="M264 352 H470" stroke="#4f8fe0" stroke-width="3" fill="none"/>
-                <path class="part part--cable" d="M470 352 H604" stroke="#4f8fe0" stroke-width="3" fill="none"/>
-                <circle class="part part--cable" cx="330" cy="352" r="4" fill="#4f8fe0"/>
-                <circle class="part part--cable" cx="410" cy="352" r="4" fill="#4f8fe0"/>
-                <rect class="part part--base" x="240" y="290" width="28" height="62" rx="3" fill="#eef4ff" opacity=".8"/>
-                <polygon class="part part--tower" points="244,142 256,142 262,290 238,290" fill="#eef4ff"/>
+                      stroke="#89dceb" stroke-width="2" fill="none" opacity=".38"/>
+                <path class="part part--cable" d="M264 352 H470" stroke="#89dceb" stroke-width="3" fill="none"/>
+                <path class="part part--cable" d="M470 352 H604" stroke="#89dceb" stroke-width="3" fill="none"/>
+                <circle class="part part--cable" cx="330" cy="352" r="4" fill="#89dceb"/>
+                <circle class="part part--cable" cx="410" cy="352" r="4" fill="#89dceb"/>
+                <rect class="part part--base" x="240" y="290" width="28" height="62" rx="3" fill="#e6e9f8" opacity=".8"/>
+                <polygon class="part part--tower" points="244,142 256,142 262,290 238,290" fill="#e6e9f8"/>
                 <g class="part part--blade">
-                  <path d="M250 133 L246 20" stroke="#eef4ff" stroke-width="9" stroke-linecap="round" fill="none"/>
-                  <path d="M250 133 L162 198" stroke="#eef4ff" stroke-width="9" stroke-linecap="round" fill="none"/>
-                  <path d="M250 133 L334 208" stroke="#eef4ff" stroke-width="9" stroke-linecap="round" fill="none"/>
+                  <path d="M250 133 L246 20" stroke="#e6e9f8" stroke-width="9" stroke-linecap="round" fill="none"/>
+                  <path d="M250 133 L162 198" stroke="#e6e9f8" stroke-width="9" stroke-linecap="round" fill="none"/>
+                  <path d="M250 133 L334 208" stroke="#e6e9f8" stroke-width="9" stroke-linecap="round" fill="none"/>
                 </g>
-                <rect class="part part--shaft" x="262" y="131" width="50" height="24" rx="6" fill="#eef4ff" opacity=".85"/>
-                <rect class="part part--gen" x="324" y="124" width="68" height="38" rx="9" fill="#eef4ff" opacity=".85"/>
-                <rect x="318" y="122" width="4" height="42" fill="#2f6ac2"/>
-                <rect x="252" y="116" width="150" height="44" rx="10" fill="none" stroke="#2f6ac2" stroke-width="2"/>
-                <circle class="part part--hub" cx="250" cy="133" r="15" fill="#eef4ff"/>
-                <rect class="part part--station" x="468" y="232" width="96" height="56" rx="8" fill="#194891"/>
-                <rect class="part part--station" x="478" y="222" width="76" height="12" rx="4" fill="#ffd700"/>
-                <g class="part part--station" stroke="#eef4ff" stroke-width="3" opacity=".7" fill="none">
+                  <rect class="part part--shaft" x="262" y="131" width="50" height="24" rx="6" fill="#e6e9f8" opacity=".85"/>
+                <rect class="part part--gen" x="324" y="124" width="68" height="38" rx="9" fill="#e6e9f8" opacity=".85"/>
+                <rect x="318" y="122" width="4" height="42" fill="#74c7ec"/>
+                <rect x="252" y="116" width="150" height="44" rx="10" fill="none" stroke="#74c7ec" stroke-width="2" opacity=".8"/>
+                <circle class="part part--hub" cx="250" cy="133" r="15" fill="#e6e9f8"/>
+                <rect class="part part--station" x="468" y="232" width="96" height="56" rx="8" fill="#45475a"/>
+                <rect class="part part--station" x="478" y="222" width="76" height="12" rx="4" fill="#f9e2af"/>
+                <g class="part part--station" stroke="#e6e9f8" stroke-width="3" opacity=".7" fill="none">
                   <path d="M478 288 L466 340"/>
                   <path d="M554 288 L566 340"/>
                   <path d="M500 288 L494 340"/>
                   <path d="M532 288 L538 340"/>
                 </g>
-                <text x="516" y="266" text-anchor="middle" font-size="13" fill="#eef4ff">换流站</text>
-                <text x="516" y="366" text-anchor="middle" font-size="12" fill="#93aad0">±400kV 直流海缆</text>
-                <text x="24" y="282" font-size="12" fill="#93aad0">海面</text>
+                <text x="516" y="266" text-anchor="middle" font-size="13" fill="#e6e9f8">换流站</text>
+                <text x="516" y="366" text-anchor="middle" font-size="12" fill="#a6adc8">±400kV 直流海缆</text>
+                <text x="24" y="282" font-size="12" fill="#a6adc8">海面</text>
               </g>
             </svg>
             <div class="diagram__hots" id="diagram-hots"></div>
@@ -174,7 +175,7 @@
           <svg class="hvdc__svg" id="hvdc-svg" viewBox="0 0 900 240" role="img" aria-labelledby="hvdc-svg-title">
             <title id="hvdc-svg-title">柔性直流输电四条链路：海上换流站、±400kV 直流海缆、陆上换流站、电网与用户</title>
             <path id="hvdc-path" d="M110 170 C 200 170 240 132 330 132 C 420 132 470 168 560 168 C 650 168 700 136 790 136"
-                  fill="none" stroke="#2f6ac2" stroke-width="3" stroke-linecap="round"/>
+                  fill="none" stroke="#74c7ec" stroke-width="3" stroke-linecap="round"/>
             <g id="hvdc-flow" aria-hidden="true"></g>
             <g id="hvdc-nodes"></g>
             <g id="hvdc-dots"></g>
@@ -324,6 +325,12 @@
 <noscript>
   <div class="noscript">本站的交互内容需要启用 JavaScript。核心数据与来源清单在不启用脚本时不可见，请开启后重新加载。</div>
 </noscript>
+
+<button class="to-top" id="to-top" type="button" aria-label="回到顶部">
+  <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true" focusable="false">
+    <path d="M9 15V4M4.6 8.4 9 4l4.4 4.4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>
+</button>
 
 <script src="vendor/gsap.min.js"></script>
 <script src="vendor/ScrollTrigger.min.js"></script>

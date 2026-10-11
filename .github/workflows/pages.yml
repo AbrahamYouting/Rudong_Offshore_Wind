@@ -31,6 +31,10 @@ jobs:
 
       - name: 配置 Pages
         uses: actions/configure-pages@v5
+        with:
+          # 仓库第一次推送时 Pages 还没启用，让这个 action 自己把站点打开，
+          # 省掉"去 Settings → Pages 手动选 GitHub Actions"那一步。
+          enablement: true
 
       - name: 上传站点产物
         uses: actions/upload-pages-artifact@v3

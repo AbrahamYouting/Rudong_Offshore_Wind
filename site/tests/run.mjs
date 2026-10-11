@@ -297,11 +297,13 @@ await check("配色对比度达标（正文与强调色均 ≥ 4.5:1）", async 
       正文: ["--c-ink", "--c-bg"],
       次要文字: ["--c-dim", "--c-bg"],
       更次要: ["--c-dim-2", "--c-bg-2"],
-      金色强调: ["--c-gold", "--c-bg"],
-      浅蓝数据色: ["--c-blue", "--c-bg"],
-      品牌蓝底正文: ["--c-ink", "--c-brand"],
-      品牌蓝底次要文字: ["--c-dim", "--c-brand"],
-      品牌蓝底金色: ["--c-gold", "--c-brand"]
+      暖金强调: ["--c-gold", "--c-bg"],
+      青蓝数据色: ["--c-blue", "--c-bg"],
+      品牌强调蓝: ["--c-accent", "--c-bg"],
+      面板底正文: ["--c-ink", "--c-brand"],
+      面板底次要文字: ["--c-dim", "--c-brand"],
+      面板底强调色: ["--c-gold", "--c-brand"],
+      主按钮字色: ["--c-bg-3", "--c-gold"]
     };
     const result = {};
     Object.keys(pairs).forEach((key) => {
@@ -315,29 +317,37 @@ await check("配色对比度达标（正文与强调色均 ≥ 4.5:1）", async 
   return JSON.stringify(ratios);
 });
 
-await check("主色确为深蓝 #194891 与金色 #FFD700", async () => {
+await check("配色为 Catppuccin Mocha（开源 MIT 配色方案）", async () => {
   const info = await page.evaluate(() => {
     const styles = getComputedStyle(document.documentElement);
     const value = (name) => styles.getPropertyValue(name).trim().toLowerCase();
     return {
-      brand: value("--c-brand"),
+      bg: value("--c-bg"),
+      bg2: value("--c-bg-2"),
+      bg3: value("--c-bg-3"),
+      ink: value("--c-ink"),
+      accent: value("--c-accent"),
       gold: value("--c-gold"),
-      surface2: value("--c-surface-2"),
-      legacyAmber: value("--c-amber"),
-      legacySea: value("--c-sea"),
+      teal: value("--c-blue"),
+      bodyBg: getComputedStyle(document.body).backgroundColor,
       heroGradient: getComputedStyle(document.querySelector(".hero")).backgroundImage,
       progressGradient: getComputedStyle(document.getElementById("progress-bar")).backgroundImage
     };
   });
-  expectEqual(info.brand, "#194891", "品牌深蓝");
-  expectEqual(info.gold, "#ffd700", "金色");
-  expectEqual(info.surface2, "#194891", "深蓝面");
-  expectEqual(info.legacyAmber, "", "旧的橙色 token 应已移除");
-  expectEqual(info.legacySea, "", "旧的青色 token 应已移除");
-  expect(info.heroGradient.includes("rgb(25, 72, 145)"), "首屏渐变没有使用深蓝主色");
-  expect(info.progressGradient.includes("rgb(25, 72, 145)"), "进度条渐变没有使用深蓝主色");
-  expect(info.progressGradient.includes("rgb(255, 215, 0)"), "进度条渐变没有使用金色");
-  return "#194891 + #FFD700 已应用";
+  expectEqual(info.bg, "#1e1e2e", "base 底色");
+  expectEqual(info.bg2, "#181825", "mantle 次底");
+  expectEqual(info.bg3, "#11111b", "crust 深底");
+  expectEqual(info.ink, "#cdd6f4", "text 主文字");
+  expectEqual(info.accent, "#89b4fa", "blue 品牌强调");
+  expectEqual(info.gold, "#f9e2af", "yellow 暖金强调");
+  expectEqual(info.teal, "#94e2d5", "teal 数据色");
+  expectEqual(info.bodyBg, "rgb(30, 30, 46)", "页面底色");
+  expect(info.heroGradient.includes("rgb(30, 30, 46)"), "首屏渐变没有使用 base 底色");
+  expect(info.progressGradient.includes("rgb(137, 180, 250)"), "进度条渐变没有使用品牌强调蓝");
+  expect(info.progressGradient.includes("rgb(249, 226, 175)"), "进度条渐变没有使用暖金");
+  expect(!info.heroGradient.includes("rgb(25, 72, 145)"), "旧的 #194891 深蓝还应已退场");
+  expect(!info.progressGradient.includes("rgb(255, 215, 0)"), "旧的 #FFD700 金色还应已退场");
+  return "#1e1e2e / #89b4fa / #f9e2af 已应用";
 });
 
 /* ============================ D. 时间轴 ============================ */
@@ -757,6 +767,41 @@ await check("减少动态效果时画布仍然出图（静态首帧）", async (
   expect(painted > 0, "静态模式下画布空白");
   await calm.__context.close();
   return "静态首帧已绘制";
+});
+
+await check("序章画布是多层的（星空 / 7 道浪 / 碎沫 / 200 台风机）", async () => {
+  const detail = await page.evaluate(() => (window.__rdHeroScene ? window.__rdHeroScene.detail : null));
+  expect(detail, "序章场景未创建");
+  expectEqual(detail.waves, 7, "浪的层数");
+  expect(detail.stars >= 80, "星空层太薄：" + detail.stars);
+  expect(detail.foam >= 40, "碎沫层太薄：" + detail.foam);
+  expectEqual(detail.turbines, 200, "风机总数");
+  return JSON.stringify(detail);
+});
+
+await check("奶蛙彩蛋：点一下序章，它会划到海面上", async () => {
+  await page.evaluate(() => window.scrollTo(0, 0));
+  await page.waitForTimeout(400);
+  const before = await page.evaluate(() => window.__rdHeroScene.frogVisible);
+  await page.evaluate(() => document.getElementById("hero").click());
+  await page.waitForTimeout(420);
+  const green = await page.evaluate(() => {
+    const canvas = document.getElementById("hero-canvas");
+    const ctx = canvas.getContext("2d");
+    const data = ctx.getImageData(
+      Math.round(canvas.width * 0.05),
+      Math.round(canvas.height * 0.6),
+      Math.round(canvas.width * 0.9),
+      Math.round(canvas.height * 0.1)
+    ).data;
+    let hits = 0;
+    for (let i = 0; i < data.length; i += 4) {
+      if (data[i + 3] > 180 && data[i + 1] > 170 && data[i + 1] - data[i] > 30) hits += 1;
+    }
+    return hits;
+  });
+  expect(green > 20, "海面上没找到奶蛙的绿色像素（" + green + "）");
+  return (before ? "原本就在场" : "点击后出现") + "，绿色像素 " + green;
 });
 
 /* ============================ L. 打印与性能 ============================ */

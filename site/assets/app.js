@@ -95,6 +95,24 @@
     });
   }
 
+  /* 回到顶部：滚过一屏才出现，避免和首屏抢注意力 */
+  function initToTop() {
+    var button = $("to-top");
+    if (!button) return;
+    var ticking = false;
+    function update() {
+      ticking = false;
+      button.classList.toggle("is-on", window.scrollY > window.innerHeight * 0.9);
+    }
+    window.addEventListener("scroll", function () {
+      if (!ticking) { ticking = true; window.requestAnimationFrame(update); }
+    }, { passive: true });
+    button.addEventListener("click", function () {
+      window.scrollTo({ top: 0, behavior: reducedMotion ? "auto" : "smooth" });
+    });
+    update();
+  }
+
   /* ============================ 2. 序章 ============================ */
   function countUp(node, target, digits) {
     if (reducedMotion || !window.requestAnimationFrame) {
@@ -360,7 +378,7 @@
     for (var i = 0; i < DOTS; i += 1) {
       var dot = document.createElementNS("http://www.w3.org/2000/svg", "circle");
       dot.setAttribute("r", "3.6");
-      dot.setAttribute("fill", "#ffd700");
+      dot.setAttribute("fill", "#f9e2af");
       dot.setAttribute("opacity", "0");
       flow.appendChild(dot);
       dots.push(dot);
@@ -762,6 +780,7 @@
     initPledge();
     renderSources();
     initNavBehaviour();
+    initToTop();
     initReveals();
 
     var canvas = $("hero-canvas");

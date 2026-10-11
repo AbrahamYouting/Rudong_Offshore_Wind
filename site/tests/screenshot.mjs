@@ -82,6 +82,14 @@ await shoot("09-interact", { width: 1440, height: 1000, selector: "#interact" })
 await shoot("10-sources", { width: 1440, height: 1000, selector: "#sources" });
 await shoot("11-mobile-hero", { width: 390, height: 844 });
 await shoot("12-mobile-timeline", { width: 390, height: 844, selector: "#history" });
+await shoot("13-frog-easter-egg", {
+  width: 1440, height: 900,
+  pre: async (page) => {
+    /* 点一下序章，把奶蛙叫出来（彩蛋截图） */
+    await page.evaluate(() => document.getElementById("hero").click());
+    await page.waitForTimeout(420);
+  }
+});
 
 await browser.close();
 server.close();
